@@ -1,0 +1,12 @@
+form
+{
+    display: flex;
+    flex-direction: column;
+}
+
+fieldset label[for="journalEntry"]
+{
+    float: left;
+    margin-bottom: 4px;
+    margin-right: 4px;
+}
