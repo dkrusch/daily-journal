@@ -4,9 +4,13 @@ form
     flex-direction: column;
 }
 
-fieldset label[for="journalEntry"]
+fieldset
 {
-    float: left;
-    margin-bottom: 4px;
-    margin-right: 4px;
+    display: flex; 
+    flex-direction: column;
+}
+
+textarea
+{
+    margin: 0px;
 }
