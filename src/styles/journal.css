@@ -1,16 +1,44 @@
-form
+form 
 {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
-fieldset
+fieldset 
 {
-    display: flex; 
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  max-width: 760px;
 }
 
-textarea
+textarea 
 {
-    margin: 0px;
+  width: 300px;
+  min-height: 17px;
+  border: 1px solid #ccc;
+  max-height: 150px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  resize: none;
+}
+
+h1, h2, h3
+{
+  margin-top: 10px;
+}
+
+.concept
+{
+  margin-bottom: 0px;
+}
+
+.date
+{
+  margin-top: 0px;
+}
+
+.entry
+{
+  font-weight: lighter;
+  margin: 10px 0;
 }
