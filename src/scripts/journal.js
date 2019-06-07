@@ -1,11 +1,3 @@
-let entriesArray = [];
-let date = document.getElementById("journalDate").value;
-let concept = document.getElementById("journalConcepts").value;
-let content = document.getElementById("journalEntry").value;
-let mood = document.getElementById("journalMood").value;
-
-const place = document.querySelector(".journalHTML");
-
 /*
     Define the keys and value for a JavaScript object that
     represents a journal entry about what you learned today
@@ -24,18 +16,6 @@ const place = document.querySelector(".journalHTML");
 //     mood: "Ok"
 //   }
 // ];
-
-const makeJournalEntryComponent = journalEntry => {
-  // Create your own HTML structure for a journal entry
-  console.log("inside make", journalEntry);
-  console.log("concept", journalEntry.concept);
-  return `
-    <h1 class="concept">${journalEntry.concept}</h1>
-    <h3 class="date">${journalEntry.date}</h3>
-    <h2 class="entry">${journalEntry.entry}</h2>
-    <h3 class="mood">${journalEntry.mood}</h3>
-    `;
-};
 
 /*
     Purpose: To render all journal entries to the DOM
@@ -57,12 +37,14 @@ const makeJournalEntryComponent = journalEntry => {
 // console.log(makeJournalEntryComponent(journalEntries[0]))
 // place[0].innerHTML += makeJournalEntryComponent(journalEntries[0]);
 
-fetch("http://localhost:3000/journalEntries") // Fetch from the API
-  .then(entries => entries.json()) // Parse as JSON
-  .then(parsedEntries => 
-  {
-    parsedEntries.forEach(entry => 
+/*
+    Main application logic that uses the functions and objects
+    defined in the other JavaScript files.
+
+    Change the fake variable names below to what they should be
+    to get the data and display it.
+*/
+API.getJournalEntries().then(entries => 
     {
-        place.innerHTML += makeJournalEntryComponent(entry);
+        addToDom.addEntry(entries)
     })
-  });
