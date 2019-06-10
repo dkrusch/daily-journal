@@ -22,8 +22,6 @@ const renderDom = {
     makeJournalEntryComponent (journalEntry)
     {
         // Create your own HTML structure for a journal entry
-    console.log("inside make", journalEntry);
-    console.log("concept", journalEntry.concept);
     return `
         <h1 class="concept">${journalEntry.concept}</h1>
         <h3 class="date">${journalEntry.date}</h3>

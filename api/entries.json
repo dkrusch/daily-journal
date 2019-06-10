@@ -1,16 +1,11 @@
 {
-    "journalEntries": [
-        {
-            "concept": "Array methods",
-            "date": "07/24/2018",
-            "entry": "We learned about array methods, but only forEach made sense",
-            "mood": "Ok"
-        },
-        {
-            "concept": "Blah Blah",
-            "date": "07/24/2018",
-            "entry": "We leaBLah Blahy methods, but only forEach made sense",
-            "mood": "Ok"
-        }
-    ]
+  "journalEntries": [
+    {
+      "concept": "API Keys",
+      "date": "2019-06-10",
+      "entry": "We learned about how to register for apis and how to select stuff from them, also I finished daily journal 6.",
+      "mood": "Very Glad",
+      "id": 1
+    }
+  ]
 }

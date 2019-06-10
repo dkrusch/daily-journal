@@ -44,7 +44,29 @@
     Change the fake variable names below to what they should be
     to get the data and display it.
 */
+let id = 0;
+button.addEventListener("click", event =>
+{
+    inputGet.get()
+    const newEntry = `{
+        "concept": "${concept}",
+        "date": "${date}",
+        "entry": "${content}",
+        "mood": "${mood}"
+      }`;
+
+    fetch("http://localhost:3000/journalEntries", {
+      // Replace "url" with your API's URL
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: newEntry
+    })
+})
+
 API.getJournalEntries().then(entries => 
     {
+        console.log(entries)
         addToDom.addEntry(entries)
     })
