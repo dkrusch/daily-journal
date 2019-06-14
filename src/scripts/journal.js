@@ -45,24 +45,50 @@
     to get the data and display it.
 */
 let id = 0;
+var badWords = RegExp('[mf]arnge')
+
+function characterLimit() 
+{
+  var characters = document.getElementById("journalConcepts").value;
+  if (characters.length > 20)
+  {
+      alert("That concept is too long, make it more abstract");
+      return false
+  }
+  else 
+  {
+    return true
+  }
+}
+
+function badWord()
+{
+  if(badWords.test(concept) || badWords.test(content))
+  {
+    alert("Thats a bad word, you fiend");
+    return false
+  }
+  return true
+}
+
+
 button.addEventListener("click", event =>
 {
     inputGet.get()
-    const newEntry = `{
-        "concept": "${concept}",
-        "date": "${date}",
-        "entry": "${content}",
-        "mood": "${mood}"
-      }`;
+    if(characterLimit())
+    {
+      if(badWord())
+      {
+        const newEntry = `{
+          "concept": "${concept}",
+          "date": "${date}",
+          "entry": "${content}",
+          "mood": "${mood}"
+        }`;
 
-    fetch("http://localhost:3000/journalEntries", {
-      // Replace "url" with your API's URL
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: newEntry
-    })
+        API.postJournalEntry(newEntry)
+      }
+    }
 })
 
 API.getJournalEntries().then(entries => 
