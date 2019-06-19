@@ -1,8 +1,8 @@
 let entriesArray = [];
-let date = "test";
-let concept = "test";
-let content = "test";
-let mood = "test";
+let date = "";
+let concept = "";
+let content = "";
+let mood = "";
 let button = document.getElementById("createEntry");
 
 const inputGet = {
@@ -23,3 +23,5 @@ const addToDom = {
     });
   }
 };
+
+
