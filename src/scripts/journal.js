@@ -79,14 +79,23 @@ button.addEventListener("click", event =>
     {
       if(badWord())
       {
-        const newEntry = `{
-          "concept": "${concept}",
-          "date": "${date}",
-          "entry": "${content}",
-          "mood": "${mood}"
-        }`;
+        var alphaExp = /^[a-zA-Z|:|,|{}|()]*$/;
+        if(concept.match(alphaExp) && content.match(alphaExp))
+        {
+          const newEntry = `{
+            "concept": "${concept}",
+            "date": "${date}",
+            "entry": "${content}",
+            "mood": "${mood}"
+          }`;
+          API.postJournalEntry(newEntry)
+        }
+        else{
+            document.getElementById("journalConcepts").value = ""
+            document.getElementById("journalEntry").value = "";
+            alert("Those characters are all wrong");
+        }
 
-        API.postJournalEntry(newEntry)
       }
     }
 })
