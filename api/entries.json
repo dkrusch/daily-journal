@@ -4,14 +4,14 @@
       "concept": "API Keys",
       "date": "2019-06-10",
       "entry": "We learned about how to register for apis and how to select stuff from them, also I finished daily journal 6.",
-      "mood": "Very Glad",
+      "mood": "Very Sad",
       "id": 1
     },
     {
       "concept": "Projects",
       "date": "2019-06-14",
       "entry": "We finished our second group project, we used github project.",
-      "mood": "Glad",
+      "mood": "Sad",
       "id": 2
     },
     {
@@ -27,6 +27,13 @@
       "entry": "Hopefully this thing works",
       "mood": "Glad",
       "id": 4
+    },
+    {
+      "concept": "Test",
+      "date": "2019-06-21",
+      "entry": "test",
+      "mood": "Very Mad",
+      "id": 5
     }
   ]
 }

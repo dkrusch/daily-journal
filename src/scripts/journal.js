@@ -79,8 +79,12 @@ button.addEventListener("click", event =>
     {
       if(badWord())
       {
-        var alphaExp = /^[a-zA-Z|:|,|{}|()]*$/;
-        if(concept.match(alphaExp) && content.match(alphaExp))
+        var alphaExp = /^[a-zA-Z|:|,|{}|()]+$/;
+        if (concept === "" || content === "")
+        {
+          alert("There's nothing in there.")
+        }
+        else if(concept.match(alphaExp) && content.match(alphaExp))
         {
           const newEntry = `{
             "concept": "${concept}",
@@ -90,7 +94,8 @@ button.addEventListener("click", event =>
           }`;
           API.postJournalEntry(newEntry)
         }
-        else{
+        else 
+        {
             document.getElementById("journalConcepts").value = ""
             document.getElementById("journalEntry").value = "";
             alert("Those characters are all wrong");
@@ -100,8 +105,21 @@ button.addEventListener("click", event =>
     }
 })
 
-API.getJournalEntries().then(entries => 
+radioButton.forEach(rb => 
+{
+  rb.addEventListener("click", event => 
+  {
+    const mood = event.target.value
+    API.getJournalEntries().then(entries => 
     {
-        console.log(entries)
-        addToDom.addEntry(entries)
+      addToDom.addEntry(entries.filter(entry => entry.mood.includes(mood)))
     })
+    console.log(mood)
+  })
+})
+
+API.getJournalEntries().then(entries => 
+{
+    console.log(entries)
+    addToDom.addEntry(entries)
+})
