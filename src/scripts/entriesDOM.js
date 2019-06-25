@@ -4,6 +4,7 @@ let concept = "";
 let content = "";
 let mood = "";
 let button = document.getElementById("createEntry");
+let radioButton = document.getElementsByName("Mood")
 
 const inputGet = {
   get() {
@@ -13,14 +14,17 @@ const inputGet = {
     mood = document.getElementById("journalMood").value;
   }
 };
+
 const place = document.querySelector(".journalHTML");
 
 const addToDom = {
   addEntry(entries) {
     place.innerHTML = ""
+    let container = document.createElement("div")
     entries.forEach(entry => {
-      place.innerHTML += renderDom.makeJournalEntryComponent(entry);
+      container.innerHTML += renderDom.makeJournalEntryComponent(entry);
     });
+    place.appendChild(container)
   }
 };
 

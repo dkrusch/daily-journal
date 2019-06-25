@@ -13,7 +13,7 @@ const API = {
     );
   },
   postJournalEntry: function(newEntry) {
-    fetch("http://localhost:3000/journalEntries", 
+    fetch("http://localhost:3000/journalEntries",
         {
           // Replace "url" with your API's URL
           method: "POST",
@@ -22,5 +22,17 @@ const API = {
           },
           body: newEntry
         })
+    .then(() => displayEntries())
+  },
+  deleteJournalEntry: function(id) {
+    fetch(`http://localhost:3000/journalEntries/${id}`, 
+    {
+      method: "DELETE",
+      headers: {
+          "Content-Type": "application/json"
+      }
+    })
+    .then(res => res.json())
+    .then(() => displayEntries())
   }
 };
