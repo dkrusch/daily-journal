@@ -1,17 +1,10 @@
 {
   "journalEntries": [
     {
-      "concept": "Test",
-      "date": "2019-06-07",
-      "entry": "This",
-      "mood": "Glad",
-      "id": 1
-    },
-    {
       "concept": "test2",
       "date": "2019-06-25",
-      "entry": "This",
-      "mood": "Very Glad",
+      "entry": "This is not",
+      "mood": "Very Sad",
       "id": 2
     },
     {

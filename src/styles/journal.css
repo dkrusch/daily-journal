@@ -11,6 +11,11 @@ fieldset
   max-width: 760px;
 }
 
+.button-container
+{
+  display: inline;
+}
+
 textarea 
 {
   width: 300px;
