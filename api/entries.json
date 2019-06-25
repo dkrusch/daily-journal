@@ -1,39 +1,25 @@
 {
   "journalEntries": [
     {
-      "concept": "API Keys",
-      "date": "2019-06-10",
-      "entry": "We learned about how to register for apis and how to select stuff from them, also I finished daily journal 6.",
-      "mood": "Very Sad",
+      "concept": "Test",
+      "date": "2019-06-07",
+      "entry": "This",
+      "mood": "Glad",
       "id": 1
     },
     {
-      "concept": "Projects",
-      "date": "2019-06-14",
-      "entry": "We finished our second group project, we used github project.",
-      "mood": "Sad",
+      "concept": "test2",
+      "date": "2019-06-25",
+      "entry": "This",
+      "mood": "Very Glad",
       "id": 2
     },
     {
-      "concept": "Testing Regex",
-      "date": "",
-      "entry": "Does the regex work",
-      "mood": "Very Glad",
+      "concept": "Test 3",
+      "date": "2019-06-25",
+      "entry": "Anotha one",
+      "mood": "Nonplussed",
       "id": 3
-    },
-    {
-      "concept": "Testing Method",
-      "date": "2019-06-14",
-      "entry": "Hopefully this thing works",
-      "mood": "Glad",
-      "id": 4
-    },
-    {
-      "concept": "Test",
-      "date": "2019-06-21",
-      "entry": "test",
-      "mood": "Very Mad",
-      "id": 5
     }
   ]
 }
