@@ -34,5 +34,16 @@ const API = {
     })
     .then(res => res.json())
     .then(() => displayEntries())
+  },
+  editJournalEntry: function(newEntry, id)
+  {
+    fetch(`http://localhost:3000/journalEntries/${id}`, {
+    method: "PUT",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: newEntry
+    })
+    .then(() => displayEntries())
   }
 };

@@ -28,4 +28,21 @@ const addToDom = {
   }
 };
 
+const changeInputs = 
+{
+  edit(entry) 
+  {
+    document.getElementById("journalDate").value = entry.date
+    document.getElementById("journalConcepts").value = entry.concept
+    document.getElementById("journalEntry").value = entry.entry
+    document.getElementById("journalMood").value = entry.mood
+    button.value = "Update Journal Entry"
+  }
+}
+
+function topFunction() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
 

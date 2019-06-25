@@ -2,14 +2,17 @@ let id = 0;
 let cachedMood = "";
 var badWords = RegExp('[mf]arnge')
 
-function addDeletes(entry)
+function addEvents(entry)
 {
-    console.log("hello")
-    console.log("Me", entry)
     document.querySelector(`#delete-${entry.id}`).addEventListener("click", () =>
     {
-      console.log(entry.id)
       API.deleteJournalEntry(entry.id)
+    })
+    document.querySelector(`#edit-${entry.id}`).addEventListener("click", () =>
+    {
+      topFunction()
+      changeInputs.edit(entry)
+      id = entry.id
     })
 }
 
@@ -41,32 +44,66 @@ function badWord()
 button.addEventListener("click", event =>
 {
     inputGet.get()
-    if(characterLimit())
+    if (button.value.includes("Update"))
     {
-      if(badWord())
+      if(characterLimit())
       {
-        var alphaExp = /^[/\s/ga-zA-Z0-9|:|,|{}|()]+$/;
-        if (concept === "" || content === "")
+        if(badWord())
         {
-          alert("There's nothing in there.")
+          var alphaExp = /^[/\s/ga-zA-Z0-9|:|,|{}|()]+$/;
+          if (concept === "" || content === "")
+          {
+            alert("There's nothing in there.")
+          }
+          else if(concept.match(alphaExp) && content.match(alphaExp))
+          {
+            const newEntry = `{
+              "concept": "${concept}",
+              "date": "${date}",
+              "entry": "${content}",
+              "mood": "${mood}"
+            }`;
+            API.editJournalEntry(newEntry, id)
+            button.value = "Record Journal Entry"
+          }
+          else 
+          {
+              document.getElementById("journalConcepts").value = ""
+              document.getElementById("journalEntry").value = "";
+              alert("Those characters are all wrong");
+          }
         }
-        else if(concept.match(alphaExp) && content.match(alphaExp))
+      }
+    }
+    else
+    {
+      if(characterLimit())
+      {
+        if(badWord())
         {
-          const newEntry = `{
-            "concept": "${concept}",
-            "date": "${date}",
-            "entry": "${content}",
-            "mood": "${mood}"
-          }`;
-          API.postJournalEntry(newEntry)
-        }
-        else 
-        {
-            document.getElementById("journalConcepts").value = ""
-            document.getElementById("journalEntry").value = "";
-            alert("Those characters are all wrong");
-        }
+          var alphaExp = /^[/\s/ga-zA-Z0-9|:|,|{}|()]+$/;
+          if (concept === "" || content === "")
+          {
+            alert("There's nothing in there.")
+          }
+          else if(concept.match(alphaExp) && content.match(alphaExp))
+          {
+            const newEntry = `{
+              "concept": "${concept}",
+              "date": "${date}",
+              "entry": "${content}",
+              "mood": "${mood}"
+            }`;
+            API.postJournalEntry(newEntry)
+          }
+          else 
+          {
+              document.getElementById("journalConcepts").value = ""
+              document.getElementById("journalEntry").value = "";
+              alert("Those characters are all wrong");
+          }
 
+        }
       }
     }
 })
@@ -81,7 +118,7 @@ radioButton.forEach(rb =>
       API.getJournalEntries().then(entries => 
       {
           addToDom.addEntry(entries)
-          entries.forEach(entry => addDeletes(entry))
+          entries.forEach(entry => addEvents(entry))
       })
     }
     else if (mood !== cachedMood)
@@ -90,7 +127,7 @@ radioButton.forEach(rb =>
       API.getJournalEntries().then(entries => 
       {
         addToDom.addEntry(entries.filter(entry => entry.mood.includes(mood)))
-        entries.filter(entry => entry.mood.includes(mood)).forEach(entry => addDeletes(entry))
+        entries.filter(entry => entry.mood.includes(mood)).forEach(entry => addEvents(entry))
       })
       console.log(mood)
     }
@@ -102,7 +139,7 @@ let displayEntries = () =>
   API.getJournalEntries().then(entries => 
     {
         addToDom.addEntry(entries)
-        entries.forEach(entry => addDeletes(entry))
+        entries.forEach(entry => addEvents(entry))
     })
 }
 
