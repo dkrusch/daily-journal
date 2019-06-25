@@ -32,6 +32,7 @@ button.addEventListener("click", event =>
               "mood": "${mood}"
             }`;
             API.editJournalEntry(newEntry, id)
+            scrollBack(id)
             button.value = "Record Journal Entry"
           }
           else 

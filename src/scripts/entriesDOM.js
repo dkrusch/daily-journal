@@ -45,4 +45,15 @@ function topFunction() {
   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
 
+function scrollBack(id)
+{
+  let field = document.getElementById(`edit-${id}`);
+  field.scrollIntoView(false);
+  window.scrollBy(0, 50);
+}
 
+// document.getElementById('myID').scrollIntoView({
+//   behavior: 'auto',
+//   block: 'center',
+//   inline: 'center'
+// });
