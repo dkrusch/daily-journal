@@ -16,6 +16,26 @@ fieldset
   display: inline;
 }
 
+.search
+{
+  width: 310.8px;
+}
+
+.bigthing
+{
+  display: flex;
+  flex-direction: column;
+  max-width: 792px;
+  /* margin: inherit; */
+  margin: 10px 0px;
+}
+
+.bigthing form
+{
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 textarea 
 {
   width: 300px;

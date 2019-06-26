@@ -3,8 +3,9 @@ let date = "";
 let concept = "";
 let content = "";
 let mood = "";
-let button = document.getElementById("createEntry");
-let radioButton = document.getElementsByName("Mood")
+const button = document.getElementById("createEntry");
+const radioButton = document.getElementsByName("Mood");
+const searchInput = document.querySelector("#searchInput");
 
 const inputGet = {
   get() {
@@ -19,11 +20,19 @@ const place = document.querySelector(".journalHTML");
 
 const addToDom = {
   addEntry(entries) {
-    place.innerHTML = ""
+    // place.innerHTML = ""
+    console.log(entries)
     let container = document.createElement("div")
-    entries.forEach(entry => {
-      container.innerHTML += renderDom.makeJournalEntryComponent(entry);
-    });
+    if(entries.length > 1)
+    {
+      entries.forEach(entry => {
+        container.innerHTML += renderDom.makeJournalEntryComponent(entry);
+      });
+    }
+    else
+    {
+      container.innerHTML += renderDom.makeJournalEntryComponent(entries);
+    }
     place.appendChild(container)
   }
 };
@@ -45,4 +54,22 @@ function topFunction() {
   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
 
+function scrollBack(id) 
+{
+  console.log(id)
+  document.getElementById(`edit-${id}`).scrollIntoView({
+    behavior: 'auto',
+    block: 'center',
+    inline: 'center'
+  });
+}
 
+function scrollDown() 
+{
+  console.log("hello")
+  document.querySelector(`.journalHTML`).scrollIntoView({
+    behavior: 'auto',
+    block: 'center',
+    inline: 'center'
+  });
+}
