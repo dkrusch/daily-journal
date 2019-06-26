@@ -1,56 +1,36 @@
-let id = 0;
-let cachedMood = "";
-var badWords = RegExp('[mf]arnge')
+/* THIS FILE CONTAINS MAIN EVENT LISTENERS */
 
-function addEvents(entry)
+// This function fetches entries from the json file and adds them to the dom 
+// and adds the delete and edit event listeners
+let displayEntries = () =>
 {
-    document.querySelector(`#delete-${entry.id}`).addEventListener("click", () =>
+  API.getJournalEntries().then(entries => 
     {
-      API.deleteJournalEntry(entry.id)
-    })
-    document.querySelector(`#edit-${entry.id}`).addEventListener("click", () =>
-    {
-      topFunction()
-      changeInputs.edit(entry)
-      id = entry.id
+        addToDom.addEntry(entries)
+        entries.forEach(entry => addEvents(entry))
     })
 }
 
-function characterLimit() 
-{
-  var characters = document.getElementById("journalConcepts").value;
-  if (characters.length > 20)
-  {
-      alert("That concept is too long, make it more abstract");
-      return false
-  }
-  else 
-  {
-    return true
-  }
-}
+displayEntries()
 
-function badWord()
-{
-  if(badWords.test(concept) || badWords.test(content))
-  {
-    alert("Thats a bad word, you fiend");
-    return false
-  }
-  return true
-}
-
-
+// This event listener is applied to the button that creates journal entries
+// it has validations for a character limit and certain words and characters
+// depending on the value of the button it can either post or update a journal entry
 button.addEventListener("click", event =>
 {
     inputGet.get()
+
+    // Will put an entry instead of posting if true
     if (button.value.includes("Update"))
     {
       if(characterLimit())
       {
         if(badWord())
         {
+          // Regular expression for normal characters as well as spaces
           var alphaExp = /^[/\s/ga-zA-Z0-9|:|,|{}|()]+$/;
+
+          // Checks to see if the fields are empty and alerts if so
           if (concept === "" || content === "")
           {
             alert("There's nothing in there.")
@@ -64,7 +44,11 @@ button.addEventListener("click", event =>
               "mood": "${mood}"
             }`;
             API.editJournalEntry(newEntry, id)
+            // Resets button to record once an entry has been updated
             button.value = "Record Journal Entry"
+
+            // Executes function to scroll the window so that the updated element is in view
+            scrollBack(id)
           }
           else 
           {
@@ -108,39 +92,68 @@ button.addEventListener("click", event =>
     }
 })
 
+// Event listener for the radio buttons, will filter entries by mood
 radioButton.forEach(rb => 
 {
   rb.addEventListener("click", event => 
   {
+
+    // Caches the mood so that the same entries won't be fetched repeatedly
     const mood = event.target.value
+
+    // Displays all entries
     if (mood === "All")
     {
       API.getJournalEntries().then(entries => 
       {
-          addToDom.addEntry(entries)
-          entries.forEach(entry => addEvents(entry))
+        place.innerHTML = ""
+        addToDom.addEntry(entries)
+        entries.forEach(entry => addEvents(entry))
       })
     }
+
+    // Checks cached mood
     else if (mood !== cachedMood)
     {
       cachedMood = mood
       API.getJournalEntries().then(entries => 
       {
-        addToDom.addEntry(entries.filter(entry => entry.mood.includes(mood)))
-        entries.filter(entry => entry.mood.includes(mood)).forEach(entry => addEvents(entry))
+        // Set the journal display array to be empty, then create an array of entries based on mood
+        // adds those filtered entries to the dom, then adds event listeners to them
+        place.innerHTML = ""
+        let filteredEntries = entries.filter(entry => entry.mood.includes(mood))
+        addToDom.addEntry(filteredEntries)
+        filteredEntries.forEach(entry => addEvents(entry))
       })
-      console.log(mood)
     }
   })
 })
 
-let displayEntries = () =>
+// The search input field that searchs for a keyword on enter press
+searchInput.addEventListener("keypress", event => 
 {
-  API.getJournalEntries().then(entries => 
+  if (event.charCode === 13) 
+  {
+    // Prevents the page from reloading
+    event.preventDefault()
+    
+    // Make search term upper case so that match will ignore case
+    let searchTerm = event.target.value.toUpperCase();
+    API.getJournalEntries().then(entries => 
     {
-        addToDom.addEntry(entries)
-        entries.forEach(entry => addEvents(entry))
+      place.innerHTML = ""
+      entries.forEach(entry => 
+        {
+          // Makes the values of the entries upper case so we can match search term
+          if (entry.concept.toUpperCase().match(searchTerm) || entry.entry.toUpperCase().match(searchTerm)) 
+          {
+            // Add to dom then add events
+            addToDom.addEntry(entry)
+            addEvents(entry)
+          }
+        });
+        // Scroll down to the entry display area
+        scrollDown()
     })
-}
-
-displayEntries()
+  }
+});

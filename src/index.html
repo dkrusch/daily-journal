@@ -35,23 +35,34 @@
         </select>
       </fieldset>
     </form>
-    <input id="createEntry" type="button" value="Record Journal Entry">
-    <form action="">
-      <fieldset style="display: inline-block">
-        <legend>Filter By Mood</legend>
-        <input type="radio" name="Mood" value="Glad"> Glad
-        <input type="radio" name="Mood" value="Sad"> Sad
-        <input type="radio" name="Mood" value="Mad"> Mad
-        <input type="radio" name="Mood" value="Nonplussed"> Nonplussed
-        <input type="radio" name="Mood" value="All"> All
-      </fieldset>
-    </form>
+    <div class="bigthing">
+      <div class="clickthing">
+        <input id="createEntry" type="button" value="Record Journal Entry">
+      </div>
+      <div class="formthing">
+        <form action="">
+          <fieldset style="display: inline-block">
+            <legend>Filter By Mood</legend>
+            <input type="radio" name="Mood" value="Glad"> Glad
+            <input type="radio" name="Mood" value="Sad"> Sad
+            <input type="radio" name="Mood" value="Mad"> Mad
+            <input type="radio" name="Mood" value="Nonplussed"> Nonplussed
+            <input type="radio" name="Mood" value="All"> All
+          </fieldset>
+          <fieldset style="display: inline-block">
+            <legend>Search</legend>
+            <input id="searchInput" type="text" name="Search" class="search" placeholder="Search for entries based on words...">
+          </fieldset>
+        </form>
+      </div>
+    </div>
     <div class="journalHTML">
       
     </div>
     <script src="scripts/entriesDOM.js"></script>
     <script src="scripts/entryComponent.js"></script>
     <script src="scripts/data.js"></script>
+    <script src="scripts/eventsAndValidation.js"></script>
     <script src="scripts/journal.js"></script>
   </body>
 </html>
