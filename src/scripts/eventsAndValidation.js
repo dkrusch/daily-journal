@@ -5,7 +5,7 @@ let id = 0;
 let cachedMood = "";
 
 // Example bad words
-var badWords = RegExp('[mf]arnge')
+let badWords = RegExp('[mf]arnge')
 
 // Adds click event listeners for the delete and edit buttons
 function addEvents(entry)

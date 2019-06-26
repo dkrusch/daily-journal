@@ -110,6 +110,7 @@ radioButton.forEach(rb =>
         addToDom.addEntry(entries)
         entries.forEach(entry => addEvents(entry))
       })
+      scrollDown()
     }
 
     // Checks cached mood
@@ -125,6 +126,7 @@ radioButton.forEach(rb =>
         addToDom.addEntry(filteredEntries)
         filteredEntries.forEach(entry => addEvents(entry))
       })
+      scrollDown()
     }
   })
 })
@@ -136,7 +138,7 @@ searchInput.addEventListener("keypress", event =>
   {
     // Prevents the page from reloading
     event.preventDefault()
-    
+
     // Make search term upper case so that match will ignore case
     let searchTerm = event.target.value.toUpperCase();
     API.getJournalEntries().then(entries => 
