@@ -1,17 +1,12 @@
-// fetch("http://localhost:3000/journalEntries") // Fetch from the API
-//   .then(entries => entries.json()) // Parse as JSON
-//   .then(parsedEntries => {
-//     parsedEntries.forEach(entry => {
-//       place.innerHTML += makeJournalEntryComponent(entry);
-//     });
-//   });
-
 const API = {
+  // Function that gets the journal entries from the json file, returns an array
   getJournalEntries: function() {
     return fetch("http://localhost:3000/journalEntries").then(response =>
       response.json()
     );
   },
+  
+  // Function that posts new entries to the json file, then displays all the entries to the dom
   postJournalEntry: function(newEntry) {
     fetch("http://localhost:3000/journalEntries",
         {
@@ -24,6 +19,8 @@ const API = {
         })
     .then(() => displayEntries())
   },
+  
+  // Removes an entry with the passed id from the json file, then displays all the entries to the dom
   deleteJournalEntry: function(id) {
     fetch(`http://localhost:3000/journalEntries/${id}`, 
     {
@@ -35,6 +32,8 @@ const API = {
     .then(res => res.json())
     .then(() => displayEntries())
   },
+
+  // Updates an entry with the passed id with the new values, then displays all the entries to the dom
   editJournalEntry: function(newEntry, id)
   {
     fetch(`http://localhost:3000/journalEntries/${id}`, {

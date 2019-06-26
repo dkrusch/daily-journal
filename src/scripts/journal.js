@@ -19,6 +19,7 @@ displayEntries()
 button.addEventListener("click", event =>
 {
     inputGet.get()
+
     // Will put an entry instead of posting if true
     if (button.value.includes("Update"))
     {
@@ -28,6 +29,7 @@ button.addEventListener("click", event =>
         {
           // Regular expression for normal characters as well as spaces
           var alphaExp = /^[/\s/ga-zA-Z0-9|:|,|{}|()]+$/;
+
           // Checks to see if the fields are empty and alerts if so
           if (concept === "" || content === "")
           {
@@ -44,6 +46,7 @@ button.addEventListener("click", event =>
             API.editJournalEntry(newEntry, id)
             // Resets button to record once an entry has been updated
             button.value = "Record Journal Entry"
+
             // Executes function to scroll the window so that the updated element is in view
             scrollBack(id)
           }
@@ -94,8 +97,10 @@ radioButton.forEach(rb =>
 {
   rb.addEventListener("click", event => 
   {
+
     // Caches the mood so that the same entries won't be fetched repeatedly
     const mood = event.target.value
+
     // Displays all entries
     if (mood === "All")
     {
@@ -106,40 +111,48 @@ radioButton.forEach(rb =>
         entries.forEach(entry => addEvents(entry))
       })
     }
+
     // Checks cached mood
     else if (mood !== cachedMood)
     {
       cachedMood = mood
       API.getJournalEntries().then(entries => 
       {
-        // 
+        // Set the journal display array to be empty, then create an array of entries based on mood
+        // adds those filtered entries to the dom, then adds event listeners to them
         place.innerHTML = ""
         let filteredEntries = entries.filter(entry => entry.mood.includes(mood))
-        console.log("a", filteredEntries)
         addToDom.addEntry(filteredEntries)
-        entries.filter(entry => entry.mood.includes(mood)).forEach(entry => addEvents(entry))
+        filteredEntries.forEach(entry => addEvents(entry))
       })
     }
   })
 })
 
+// The search input field that searchs for a keyword on enter press
 searchInput.addEventListener("keypress", event => 
 {
   if (event.charCode === 13) 
   {
+    // Prevents the page from reloading
     event.preventDefault()
+    
+    // Make search term upper case so that match will ignore case
     let searchTerm = event.target.value.toUpperCase();
     API.getJournalEntries().then(entries => 
     {
       place.innerHTML = ""
       entries.forEach(entry => 
         {
+          // Makes the values of the entries upper case so we can match search term
           if (entry.concept.toUpperCase().match(searchTerm) || entry.entry.toUpperCase().match(searchTerm)) 
           {
+            // Add to dom then add events
             addToDom.addEntry(entry)
             addEvents(entry)
           }
         });
+        // Scroll down to the entry display area
         scrollDown()
     })
   }

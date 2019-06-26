@@ -1,8 +1,7 @@
+// Takes a journal entry and converts into an html section so that it can be added to the dom
 const renderDom = {
     makeJournalEntryComponent (journalEntry)
     {
-        console.log(journalEntry)
-        // Create your own HTML structure for a journal entry
     return `
         <fieldset>
         <h1 class="concept">${journalEntry.concept}</h1>
