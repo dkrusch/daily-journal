@@ -1,13 +1,34 @@
+/* THIS FILE CONTAINS MAIN EVENT LISTENERS */
+
+// This function fetches entries from the json file and adds them to the dom 
+// and adds the delete and edit event listeners
+let displayEntries = () =>
+{
+  API.getJournalEntries().then(entries => 
+    {
+        addToDom.addEntry(entries)
+        entries.forEach(entry => addEvents(entry))
+    })
+}
+
+displayEntries()
+
+// This event listener is applied to the button that creates journal entries
+// it has validations for a character limit and certain words and characters
+// depending on the value of the button it can either post or update a journal entry
 button.addEventListener("click", event =>
 {
     inputGet.get()
+    // Will put an entry instead of posting if true
     if (button.value.includes("Update"))
     {
       if(characterLimit())
       {
         if(badWord())
         {
+          // Regular expression for normal characters as well as spaces
           var alphaExp = /^[/\s/ga-zA-Z0-9|:|,|{}|()]+$/;
+          // Checks to see if the fields are empty and alerts if so
           if (concept === "" || content === "")
           {
             alert("There's nothing in there.")
@@ -21,7 +42,9 @@ button.addEventListener("click", event =>
               "mood": "${mood}"
             }`;
             API.editJournalEntry(newEntry, id)
+            // Resets button to record once an entry has been updated
             button.value = "Record Journal Entry"
+            // Executes function to scroll the window so that the updated element is in view
             scrollBack(id)
           }
           else 
@@ -66,28 +89,36 @@ button.addEventListener("click", event =>
     }
 })
 
+// Event listener for the radio buttons, will filter entries by mood
 radioButton.forEach(rb => 
 {
   rb.addEventListener("click", event => 
   {
+    // Caches the mood so that the same entries won't be fetched repeatedly
     const mood = event.target.value
+    // Displays all entries
     if (mood === "All")
     {
       API.getJournalEntries().then(entries => 
       {
-          addToDom.addEntry(entries)
-          entries.forEach(entry => addEvents(entry))
+        place.innerHTML = ""
+        addToDom.addEntry(entries)
+        entries.forEach(entry => addEvents(entry))
       })
     }
+    // Checks cached mood
     else if (mood !== cachedMood)
     {
       cachedMood = mood
       API.getJournalEntries().then(entries => 
       {
-        addToDom.addEntry(entries.filter(entry => entry.mood.includes(mood)))
+        // 
+        place.innerHTML = ""
+        let filteredEntries = entries.filter(entry => entry.mood.includes(mood))
+        console.log("a", filteredEntries)
+        addToDom.addEntry(filteredEntries)
         entries.filter(entry => entry.mood.includes(mood)).forEach(entry => addEvents(entry))
       })
-      console.log(mood)
     }
   })
 })
@@ -105,9 +136,6 @@ searchInput.addEventListener("keypress", event =>
         {
           if (entry.concept.toUpperCase().match(searchTerm) || entry.entry.toUpperCase().match(searchTerm)) 
           {
-            console.log(entry.concept.toUpperCase())
-            console.log(entry.entry.toUpperCase())
-            console.log(searchTerm)
             addToDom.addEntry(entry)
             addEvents(entry)
           }
@@ -116,14 +144,3 @@ searchInput.addEventListener("keypress", event =>
     })
   }
 });
-
-let displayEntries = () =>
-{
-  API.getJournalEntries().then(entries => 
-    {
-        addToDom.addEntry(entries)
-        entries.forEach(entry => addEvents(entry))
-    })
-}
-
-displayEntries()

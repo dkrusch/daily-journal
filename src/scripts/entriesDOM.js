@@ -29,6 +29,10 @@ const addToDom = {
         container.innerHTML += renderDom.makeJournalEntryComponent(entry);
       });
     }
+    else if (entries[0])
+    {
+      container.innerHTML += renderDom.makeJournalEntryComponent(entries[0]);
+    }
     else
     {
       container.innerHTML += renderDom.makeJournalEntryComponent(entries);

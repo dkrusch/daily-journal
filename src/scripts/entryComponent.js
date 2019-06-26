@@ -1,6 +1,7 @@
 const renderDom = {
     makeJournalEntryComponent (journalEntry)
     {
+        console.log(journalEntry)
         // Create your own HTML structure for a journal entry
     return `
         <fieldset>
