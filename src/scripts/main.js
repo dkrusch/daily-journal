@@ -1,4 +1,7 @@
 /* THIS FILE CONTAINS MAIN EVENT LISTENERS */
+import {inputGet, addToDom, scrollBack, scrollDown, button, radioButton, place} from "./entriesDOM.js"
+import {id, characterLimit, badWord, addEvents, resetRadio} from "./eventsAndValidation"
+import {API} from "./data.js"
 
 // This function fetches entries from the json file and adds them to the dom 
 // and adds the delete and edit event listeners
@@ -92,6 +95,9 @@ button.addEventListener("click", event =>
     }
 })
 
+// Holds the last filtered mood
+let cachedMood = ""
+
 // Event listener for the radio buttons, will filter entries by mood
 radioButton.forEach(rb => 
 {
@@ -138,6 +144,12 @@ searchInput.addEventListener("keypress", event =>
   {
     // Prevents the page from reloading
     event.preventDefault()
+
+    // Resets the cached mood so that radio buttons can be reclicked after search
+    cachedMood = ""
+
+    // Resets the radio button check status when something is searched
+    resetRadio()
 
     // Make search term upper case so that match will ignore case
     let searchTerm = event.target.value.toUpperCase();

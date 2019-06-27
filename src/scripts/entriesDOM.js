@@ -1,3 +1,5 @@
+import {renderDom} from "./entryComponent.js"
+
 // Defines some initial variables that will be changed or used in other functions
 let entriesArray = [];
 let date = "";
@@ -71,9 +73,9 @@ function scrollBack(id)
 {
   console.log(id)
   document.getElementById(`edit-${id}`).scrollIntoView({
-    behavior: 'auto',
-    block: 'center',
-    inline: 'center'
+    behavior: "auto",
+    block: "center",
+    inline: "center"
   });
 }
 
@@ -82,8 +84,10 @@ function scrollDown()
 {
   console.log("hello")
   document.querySelector(`.journalHTML`).scrollIntoView({
-    behavior: 'auto',
-    block: 'center',
-    inline: 'center'
+    behavior: "auto",
+    block: "center",
+    inline: "center"
   });
 }
+
+export {inputGet, addToDom, changeInputs, topFunction, scrollBack, scrollDown, button, radioButton, place}
