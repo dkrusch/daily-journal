@@ -1,11 +1,10 @@
+import {changeInputs, topFunction} from "./entriesDOM.js"
+
 // Global id variable to be passed into fetch link
 let id = 0;
 
-// Holds the last filtered mood
-let cachedMood = "";
-
 // Example bad words
-let badWords = RegExp('[mf]arnge')
+let badWords = RegExp("[mf]arnge")
 
 // Adds click event listeners for the delete and edit buttons
 function addEvents(entry)
@@ -50,3 +49,14 @@ function badWord()
   }
   return true
 }
+
+function resetRadio()
+{
+  let radios = document.getElementsByName("Mood");
+   for (let i = 0; i < radios.length; i++)
+   {
+      radios[i].checked = false;
+   }    
+}
+
+export {id, characterLimit, badWord, addEvents, resetRadio}

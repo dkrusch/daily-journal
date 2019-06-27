@@ -1,14 +1,14 @@
 const API = {
   // Function that gets the journal entries from the json file, returns an array
   getJournalEntries: function() {
-    return fetch("http://localhost:3000/journalEntries").then(response =>
+    return fetch("http://localhost:8088/journalEntries").then(response =>
       response.json()
     );
   },
   
   // Function that posts new entries to the json file, then displays all the entries to the dom
   postJournalEntry: function(newEntry) {
-    fetch("http://localhost:3000/journalEntries",
+    fetch("http://localhost:8088/journalEntries",
         {
           // Replace "url" with your API's URL
           method: "POST",
@@ -22,7 +22,7 @@ const API = {
   
   // Removes an entry with the passed id from the json file, then displays all the entries to the dom
   deleteJournalEntry: function(id) {
-    fetch(`http://localhost:3000/journalEntries/${id}`, 
+    fetch(`http://localhost:8088/journalEntries/${id}`, 
     {
       method: "DELETE",
       headers: {
@@ -36,7 +36,7 @@ const API = {
   // Updates an entry with the passed id with the new values, then displays all the entries to the dom
   editJournalEntry: function(newEntry, id)
   {
-    fetch(`http://localhost:3000/journalEntries/${id}`, {
+    fetch(`http://localhost:8088/journalEntries/${id}`, {
     method: "PUT",
     headers: {
         "Content-Type": "application/json"
@@ -46,3 +46,5 @@ const API = {
     .then(() => displayEntries())
   }
 };
+
+export {API}
